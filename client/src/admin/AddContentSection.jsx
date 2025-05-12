@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import AdminNav from "./AdminSidebar";
 import { toast } from "react-hot-toast";
-import ReactQuill from "react-quill";
+import ReactQuill from "react-quill"; 
 import 'react-quill/dist/quill.snow.css'; // Import Quill styles
 
 const AddContentSection = () => {
