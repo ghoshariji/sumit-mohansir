@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import AdminNav from "./AdminSidebar";
 import { toast } from "react-hot-toast";
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css'; // Import Quill styles
 
 const AddContentSection = () => {
   const [languages, setLanguages] = useState([]);
@@ -8,9 +10,8 @@ const AddContentSection = () => {
   const [filteredTitles, setFilteredTitles] = useState([]);
   const [selectedLanguageName, setSelectedLanguageName] = useState("");
   const [selectedTitle, setSelectedTitle] = useState("");
-  const [contentText, setContentText] = useState("");
+  const [editorContent, setEditorContent] = useState("");
 
-  // Fetch all programming languages
   const fetchLanguages = async () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_SERVER}/api/language`);
@@ -22,7 +23,6 @@ const AddContentSection = () => {
     }
   };
 
-  // Fetch all titles
   const fetchTitles = async () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_SERVER}/api/title`);
@@ -34,43 +34,27 @@ const AddContentSection = () => {
     }
   };
 
-  // Fetch data on mount
   useEffect(() => {
     fetchLanguages();
     fetchTitles();
   }, []);
 
-  // Filter titles based on selected language
   useEffect(() => {
     if (selectedLanguageName) {
       const matched = titles.filter(
         (t) => t.languageName === selectedLanguageName
       );
-
-      // Optional: remove duplicate section names
-      // const uniqueMatched = Array.from(
-      //   new Map(matched.map((item) => [item.languageContent, item])).values()
-      // );
-      // setFilteredTitles(uniqueMatched);
-
       setFilteredTitles(matched);
-
-      console.log(
-        "Filtered sections for language:",
-        selectedLanguageName,
-        matched
-      );
     } else {
       setFilteredTitles([]);
     }
     setSelectedTitle("");
   }, [selectedLanguageName, titles]);
 
-  // Handle form submission
   const handleAddContent = async (e) => {
     e.preventDefault();
 
-    if (!selectedLanguageName || !selectedTitle || !contentText.trim()) {
+    if (!selectedLanguageName || !selectedTitle || !editorContent.trim()) {
       toast.error("Please fill all fields.");
       return;
     }
@@ -83,8 +67,8 @@ const AddContentSection = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             selectedLanguageName,
-            selectedTitle, // This is the selected section (languageContent)
-            contentText,
+            selectedTitle,
+            contentText: editorContent,
           }),
         }
       );
@@ -92,7 +76,7 @@ const AddContentSection = () => {
       const result = await res.json();
       if (res.ok) {
         toast.success("Content added successfully!");
-        setContentText("");
+        setEditorContent(""); // Clear content after successful submission
         setSelectedTitle("");
         setSelectedLanguageName("");
         setFilteredTitles([]);
@@ -105,24 +89,33 @@ const AddContentSection = () => {
     }
   };
 
-  return (
-    <div>
-      <AdminNav />
-      <div className="lg:ml-64 p-6 mt-16 text-white min-h-screen">
-        <h2 className="text-2xl text-black font-bold mb-6">
-          Add Content Section
-        </h2>
+  const modules = {
+    toolbar: [
+      [{ header: '1' }, { header: '2' }, { font: [] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ align: [] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      ['link', 'image'],
+      [{ 'script': 'sub' }, { 'script': 'super' }],
+      ['blockquote', 'code-block'],
+      ['clean']
+    ],
+  };
 
-        <form onSubmit={handleAddContent} className="space-y-5">
+  return (
+    <div className="bg-gray-100 min-h-screen">
+      <AdminNav />
+      <div className="lg:ml-64 p-8 mt-16 text-gray-800">
+        <h2 className="text-4xl text-gray-900 font-extrabold mb-8">Add Content Section</h2>
+
+        <form onSubmit={handleAddContent} className="space-y-6 bg-white shadow-lg rounded-lg p-8">
           {/* Language Dropdown */}
           <div>
-            <label className="block mb-1 text-black font-bold">
-              Select Language
-            </label>
+            <label className="block mb-2 text-lg font-semibold text-gray-700">Select Language</label>
             <select
               value={selectedLanguageName}
               onChange={(e) => setSelectedLanguageName(e.target.value)}
-              className="w-full p-2 rounded text-black border border-black"
+              className="w-full p-3 rounded-lg shadow-sm border border-gray-300 focus:ring-2 focus:ring-blue-500 transition duration-300"
             >
               <option value="">-- Select --</option>
               {languages.map((lang) => (
@@ -135,13 +128,11 @@ const AddContentSection = () => {
 
           {/* Section Dropdown */}
           <div>
-            <label className="block mb-1 text-black font-bold">
-              Select Section
-            </label>
+            <label className="block mb-2 text-lg font-semibold text-gray-700">Select Section</label>
             <select
               value={selectedTitle}
               onChange={(e) => setSelectedTitle(e.target.value)}
-              className="w-full p-2 rounded text-black border border-black"
+              className="w-full p-3 rounded-lg shadow-sm border border-gray-300 focus:ring-2 focus:ring-blue-500 transition duration-300"
               disabled={!filteredTitles.length}
             >
               <option value="">-- Select --</option>
@@ -153,25 +144,25 @@ const AddContentSection = () => {
             </select>
           </div>
 
-          {/* Content Textarea */}
+          {/* Quill Editor */}
           <div>
-            <label className="block mb-1 text-black font-bold">Content</label>
-            <textarea
-              value={contentText}
-              onChange={(e) => setContentText(e.target.value)}
-              rows={5}
-              className="w-full p-2 rounded text-black border border-black"
-              placeholder="Enter content..."
-            ></textarea>
+            <label className="block mb-2 text-lg font-semibold text-gray-700">Content</label>
+            <ReactQuill
+              value={editorContent}
+              onChange={setEditorContent}
+              modules={modules}
+              className="w-full min-h-[200px] p-4 rounded-lg shadow-sm border border-gray-300 focus:ring-2 focus:ring-blue-500 transition duration-300"
+            />
           </div>
 
           {/* Submit Button */}
           <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Add Content
-          </button>
+          type="submit"
+          className="px-6 py-2 text-white bg-gradient-to-r from-sky-500 to-sky-700 rounded-lg shadow-lg hover:from-sky-600 hover:to-sky-800 focus:ring-4 focus:ring-blue-300 transition duration-300 text-sm font-semibold mx-auto block"
+        >
+          Add Content
+        </button>
+        
         </form>
       </div>
     </div>
