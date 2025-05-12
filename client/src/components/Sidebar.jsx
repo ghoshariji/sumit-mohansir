@@ -7,7 +7,7 @@ const Sidebar = ({ activeCourse, titles, selectedTitle, setSelectedTitle }) => {
   return (
     <div className="w-64 bg-white dark:bg-gray-800 p-4 border-r dark:border-gray-700 h-screen overflow-y-auto">
       <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">Topics</h2>
-      {titles.map((title) => (
+      {titles.length > 0 && titles.map((title) => (
         <button
           key={title._id}
           onClick={() => {
