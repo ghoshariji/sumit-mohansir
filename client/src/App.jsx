@@ -4,61 +4,54 @@ import {
   Routes,
   Route,
   useLocation,
+  Navigate,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";  // Assuming Sidebar exists
 import Register from "./authpages/Register";
 import UserLogin from "./authpages/UserLogin";
 import AdminDashboard from "./admin/AdminDashboard";
 import AdminLanguage from "./admin/AdminLanguage";
 import AddContentSection from "./admin/AddContentSection";
 import AddTitleSection from "./admin/AddTitleSection";
-import MainContainer from "./pages/Courses/MainContainer";
-import ContentDisplay from "./pages/Courses/ContentDisplay"; // Assuming this is your content display component
-import ContentPage from "./pages/Courses/ContentDisplay";
-import CoursePage from "./pages/Courses/CoursePage"; 
+import CoursePage from "./pages/Courses/CoursePage"; // Import the new page
+import Home from "./pages/Home";
+import Editor from "./pages/Test";
+import AdminAddvertise from "./admin/AddvertiseMent";
+
 const AppLayout = () => {
   const location = useLocation();
-  const [selectedLanguage, setSelectedLanguage] = useState("");
 
-  // Determine if the Navbar and Sidebar should be hidden
+  // Define condition to hide Navbar for certain routes
   const hideNavbar =
     location.pathname === "/login" ||
     location.pathname === "/register" ||
-    location.pathname === "/admin-language" ||
-    location.pathname === "/admin-section-content" ||
-    location.pathname === "/admin-dashboard" ||
-    location.pathname === "/admin-title";
+    location.pathname.startsWith("/admin");
 
   return (
     <>
-      {!hideNavbar && <Navbar onSelectLanguage={setSelectedLanguage} />}
-      <div className="flex">
-        <div className="flex-grow">
-          <Routes>
-            <Route path="/login" element={<UserLogin />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
-            <Route path="/admin-language" element={<AdminLanguage />} />
-            <Route path="/admin-title" element={<AddTitleSection />} />
-            <Route path="/admin-section-content" element={<AddContentSection />} />
-            <Route path="/" element={<MainContainer />} />
-            {/* <Route path="/course/:language" element={<CoursePage />} /> 
-            <Route path="/course/:language/:title" element={<ContentPage />} /> */}
-          <Route path="/course/:languageName/title/:languageContent" element={<MainContainer />} /> 
-          </Routes>
-        </div>
-      </div>
+      {/* Only render Navbar if not on login, register, or admin pages */}
+      {!hideNavbar && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<UserLogin />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin-language" element={<AdminLanguage />} />
+        <Route path="/admin-title" element={<AddTitleSection />} />
+        <Route path="/admin-section-content" element={<AddContentSection />} />
+        <Route path="/course/:languageName/title/:languageContent" element={<CoursePage />} />
+        <Route path="/test" element={<Editor />} />
+        {/* Optional: redirect old route */}
+        <Route path="/MainContainer" element={<Navigate to="/" />} />
+        <Route path="/admin-addvertisement" element={<AdminAddvertise />} />
+      </Routes>
     </>
   );
 };
-
-const App = () => {
-  return (
-    <Router>
-      <AppLayout />
-    </Router>
-  );
-};
+const App = () => (
+  <Router>
+    <AppLayout />
+  </Router>
+);
 
 export default App;

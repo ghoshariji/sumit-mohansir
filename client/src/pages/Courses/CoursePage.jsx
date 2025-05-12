@@ -1,31 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import Sidebar from '../../components/Sidebar';
+import MainContainer from './MainContainer';
+import API from '../../api/index';
 
 const CoursePage = () => {
-  const { language } = useParams();
+  const { languageName, languageContent } = useParams();
   const [titles, setTitles] = useState([]);
+  const [selectedTitle, setSelectedTitle] = useState(languageContent);
+  const [activeCourse] = useState(languageName);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/title/by-language/${language}`)
-      .then((res) => setTitles(res.data))
-      .catch((err) => console.error('Failed to load titles:', err));
-  }, [language]);
+    const fetchTitles = async () => {
+      try {
+        const res = await API.get(`/api/title/${languageName}`);
+        setTitles(res.data || []);
+      } catch (err) {
+        console.error('Error fetching titles:', err);
+      }
+    };
+    fetchTitles();
+  }, [languageName]);
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl mb-4">Titles for {language}</h2>
-      <div className="flex flex-wrap gap-2">
-        {titles.map((title) => (
-          <Link
-            to={`/course/${language}/${title.languageContent}`}
-            key={title._id}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            {title.languageContent}
-          </Link>
-        ))}
+    <div className="flex h-screen">
+      <Sidebar
+        activeCourse={activeCourse}
+        titles={titles}
+        selectedTitle={selectedTitle}
+        setSelectedTitle={setSelectedTitle}
+      />
+      <div className="flex-grow overflow-y-auto">
+        <MainContainer />
       </div>
     </div>
   );

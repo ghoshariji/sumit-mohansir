@@ -22,6 +22,7 @@ const userRoute = require("./routes/userRoute");
 const languageRoutes = require("./routes/languageRoutes");
 const titleRoute = require("./routes/titleRoute");
 const sectionRoute = require("./routes/sectionRoute");
+const addverRoute = require("./routes/addverRoute");
 
 // Static files
 app.use(express.static(path.join(__dirname, "./sampleFileUpload")));
@@ -31,6 +32,7 @@ app.use("/api/auth", userRoute);
 app.use("/api/language", languageRoutes);
 app.use("/api/title", titleRoute);
 app.use("/api/section", sectionRoute);
+app.use("/api/add", addverRoute);
 
 // Start the server
 app.listen(PORT, () => {
