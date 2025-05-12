@@ -38,7 +38,7 @@ const Navbar = () => {
 
   return (
     <div className="w-full font-sans">
-      <nav className="flex items-center justify-between px-4 md:px-6 py-2 bg-white dark:bg-gray-900 shadow dark:text-white relative">
+<nav className="sticky top-0 z-50 flex items-center justify-between px-4 md:px-6 py-2 bg-white dark:bg-gray-900 shadow dark:text-white">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1">
             <img src="/logo192.png" alt="Logo" className="h-8 w-8" />
@@ -95,7 +95,7 @@ const Navbar = () => {
 
       {/* Only show courses strip on home or course page */}
       {(location.pathname === '/' || location.pathname.includes('/course')) && (
-        <div className="relative bg-gray-900 text-white py-2">
+  <div className="sticky top-[56px] z-40 bg-gray-900 text-white py-2">
           <button onClick={scrollLeft} className="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 z-10">
             <FaChevronLeft />
           </button>

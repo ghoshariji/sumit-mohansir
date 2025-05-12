@@ -23,15 +23,26 @@ const CoursePage = () => {
   }, [languageName]);
 
   return (
-    <div className="flex h-screen">
-      <Sidebar
-        activeCourse={activeCourse}
-        titles={titles}
-        selectedTitle={selectedTitle}
-        setSelectedTitle={setSelectedTitle}
-      />
-      <div className="flex-grow overflow-y-auto">
-        <MainContainer />
+    <div className="flex flex-col h-full overflow-hidden">
+      {/* Navbar (sticky at top) */}
+      <div className="w-full bg-white text-black px-4 py-3 text-xl font-bold sticky top-0 z-50 shadow">
+        Course: {languageName}
+      </div>
+
+      {/* Main Layout (Sidebar + Main Content) */}
+      <div className="flex  h-[calc(100vh-56px)]">
+        <Sidebar
+          activeCourse={activeCourse}
+          titles={titles}
+          selectedTitle={selectedTitle}
+          setSelectedTitle={setSelectedTitle}
+        />
+        <div className="flex-grow overflow-y-auto overflow-x-hidden bg-white dark:bg-gray-900 p-4">
+          <MainContainer
+            languageName={languageName}
+            languageContent={selectedTitle}
+          />
+        </div>
       </div>
     </div>
   );

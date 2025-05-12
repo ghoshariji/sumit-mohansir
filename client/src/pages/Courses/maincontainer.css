@@ -1,0 +1,11 @@
+.content-container {
+  background-color: white !important;
+  color: black !important;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.content-container * {
+  background-color: transparent !important;
+  color: black !important;
+}

@@ -2,6 +2,9 @@
 /* hide-scrollbar utility */
 
 /* Tailwind-compatible scrollbar hiding */
+body {
+  overflow: hidden;
+}
 .hide-scrollbar {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
@@ -10,3 +13,4 @@
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
