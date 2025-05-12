@@ -29,14 +29,18 @@ exports.getAllContent = async (req, res) => {
 
 // Get first content by selectedLanguageName (used for default display)
 exports.getContentByLanguageAndTitle = async (req, res) => {
-  const { language, title } = req.query;
+  const language = decodeURIComponent(req.params.language);
+  const title = decodeURIComponent(req.params.title);
+
+  console.log("Decoded Language:", language);
+  console.log("Decoded Title:", title);
 
   try {
     const content = await Content.findOne({
       selectedLanguageName: language,
       selectedTitle: title,
     });
-console.log(content);
+    console.log("Fetched Content:", content);
     if (!content) {
       return res.status(404).json({ message: "Content not found" });
     }
@@ -47,6 +51,8 @@ console.log(content);
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
 
 exports.getLanguages = async (req, res) => {
   try {
