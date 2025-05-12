@@ -195,6 +195,23 @@ const AdminNav = () => {
               </NavLink>
             </li>
             <li>
+              <NavLink
+                to="/admin-addvertisement"
+                className={({ isActive }) =>
+                  `flex items-center p-2 rounded-lg transition duration-300 transform ${
+                    isActive
+                      ? "bg-[#B1D4E0] text-gray-900 dark:text-black"
+                      : "text-gray-900 dark:text-white hover:bg-[#40A1CB] dark:hover:bg-[#005F7F] hover:scale-105"
+                  }`
+                }
+              >
+                <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                  <FaHome className="w-5 h-5" color="black" />
+                </div>
+                <span className="ms-3">Add AdvertiseMent</span>
+              </NavLink>
+            </li>
+            <li>
               <button
                 onClick={handleLogout}
                 className="w-full text-left flex items-center p-2 rounded-lg transition duration-300 transform text-gray-900 dark:text-white hover:bg-[#40A1CB] dark:hover:bg-[#005F7F] hover:scale-105"
@@ -205,6 +222,7 @@ const AdminNav = () => {
                 <span className="ms-3">Logout</span>
               </button>
             </li>
+            
           </ul>
         </div>
       </aside>

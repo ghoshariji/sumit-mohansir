@@ -15,6 +15,8 @@ import AddContentSection from "./admin/AddContentSection";
 import AddTitleSection from "./admin/AddTitleSection";
 import CoursePage from "./pages/Courses/CoursePage"; // Import the new page
 import Home from "./pages/Home";
+import Editor from "./pages/Test";
+import AdminAddvertise from "./admin/AddvertiseMent";
 
 const AppLayout = () => {
   const location = useLocation();
@@ -38,8 +40,10 @@ const AppLayout = () => {
         <Route path="/admin-title" element={<AddTitleSection />} />
         <Route path="/admin-section-content" element={<AddContentSection />} />
         <Route path="/course/:languageName/title/:languageContent" element={<CoursePage />} />
+        <Route path="/test" element={<Editor />} />
         {/* Optional: redirect old route */}
         <Route path="/MainContainer" element={<Navigate to="/" />} />
+        <Route path="/admin-addvertisement" element={<AdminAddvertise />} />
       </Routes>
     </>
   );
