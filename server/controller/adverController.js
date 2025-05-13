@@ -33,9 +33,16 @@ exports.createAd = async (req, res) => {
 
 exports.getMedia = async (req, res) => {
   try {
+    const currentDate = new Date();
+    
+    // Fetch only non-expired ads
+    const activeAds = await Advert.find({ 
+      $or: [
+        { expiryDate: { $gt: currentDate } }, // not expired
+        { expiryDate: null } // or no expiry set
+      ]
+    });
 
-    const activeAds = await Advert.find(); // Don't send large media buffer here
-    console.log(activeAds)
     res.status(200).json(activeAds);
   } catch (err) {
     console.error("Error fetching active ads:", err);
