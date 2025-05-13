@@ -6,6 +6,7 @@ import {
   useLocation,
   Navigate,
 } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Register from "./authpages/Register";
 import UserLogin from "./authpages/UserLogin";
