@@ -57,7 +57,6 @@ const Navbar = () => {
             <span className="text-green-600 font-bold text-lg">SMStudy</span>
           </div>
         </div>
-
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-2">
             <input
@@ -107,9 +106,6 @@ const Navbar = () => {
 
       {mobileOpen && (
         <div className="md:hidden bg-white dark:bg-gray-800 text-black dark:text-white px-4 py-2 space-y-2">
-          {/* <span className="flex items-center gap-2">
-            <FaGraduationCap /> For Teachers
-          </span> */}
           <div className="flex gap-4 mt-2">
             <button className="bg-green-500 text-white px-4 py-1 rounded-full">
               Sign Up
