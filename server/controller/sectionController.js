@@ -42,7 +42,7 @@ exports.getContentByLanguageAndTitle = async (req, res) => {
     });
     console.log("Fetched Content:", content);
     if (!content) {
-      return res.status(404).json({ message: "Content not found" });
+      return res.status(202).json({ message: "Content not found" });
     }
 
     res.json(content);

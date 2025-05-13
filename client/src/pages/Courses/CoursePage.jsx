@@ -14,6 +14,7 @@ const CoursePage = () => {
     const fetchTitles = async () => {
       try {
         const res = await API.get(`/api/title/${languageName}`);
+        console.log(res)
         setTitles(res.data || []);
       } catch (err) {
         console.error('Error fetching titles:', err);
@@ -26,7 +27,7 @@ const CoursePage = () => {
     <div className="flex flex-col h-full overflow-hidden">
       {/* Navbar (sticky at top) */}
       <div className="w-full bg-white text-black px-4 py-3 text-xl font-bold sticky top-0 z-50 shadow">
-        Course: {languageName}
+        Module : {languageName}
       </div>
 
       {/* Main Layout (Sidebar + Main Content) */}
