@@ -35,10 +35,10 @@ const MainContainer = ({ languageName, languageContent }) => {
 
   return (
     <div className="w-full p-6 pt-20 md:pt-6 bg-gray-50 dark:bg-gray-900 min-h-screen overflow-y-auto">
-      <h2 className="text-4xl font-bold text-black mb-4">{languageContent}</h2>
+      <h2 className="text-4xl font-bold text-white mb-4">{languageContent}</h2>
       {contentText ? (
         <div
-          className="prose max-w-none content-container text-lg text-black leading-relaxed"
+          className="prose max-w-none content-container text-lg text-white leading-relaxed"
           dangerouslySetInnerHTML={{ __html: contentText }}
         />
       ) : (
