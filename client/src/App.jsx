@@ -17,6 +17,8 @@ import CoursePage from "./pages/Courses/CoursePage"; // Import the new page
 import Home from "./pages/Home";
 import Editor from "./pages/Test";
 import AdminAddvertise from "./admin/AddvertiseMent";
+import { ThemeProvider } from "./context/ThemeContext";
+
 
 const AppLayout = () => {
   const location = useLocation();

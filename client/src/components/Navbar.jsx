@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import {
   FaSearch,
@@ -16,8 +16,10 @@ import {
 import API from "../api";
 import logo from "../assets/logo.jpg"
 import {toast} from "react-hot-toast"
+import { ThemeContext } from "../context/ThemeContext"; // Add import for ThemeContext
+
 const Navbar = () => {
-  const [darkMode, setDarkMode] = useState(false);
+const { darkMode, setDarkMode } = useContext(ThemeContext);
   const [languages, setLanguages] = useState([]);
   const [activeCourse, setActiveCourse] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
