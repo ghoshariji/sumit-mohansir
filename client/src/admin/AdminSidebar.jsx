@@ -18,7 +18,15 @@ import {
   FaDollarSign,
   FaSyncAlt,
   FaWallet,
+  FaGlobe,
+  FaFlagUsa,
+  FaFlag,
   FaSignOutAlt,
+  FaLanguage,
+  FaTiktok,
+  FaTint,
+  FaTextWidth,
+  FaAdversal,
 } from "react-icons/fa"; // Importing icons
 
 const AdminNav = () => {
@@ -108,7 +116,7 @@ const AdminNav = () => {
 
                 {/* Welcome Message */}
                 <span className="text-white text-lg font-semibold">
-                  Welcome {firstName}
+                  Welcome Admin
                 </span>
               </div>
             </div>
@@ -128,7 +136,7 @@ const AdminNav = () => {
             {/* Sidebar links */}
             <li>
               <NavLink
-                to="/milkman-dashboard"
+                to="/admin-dashboard"
                 className={({ isActive }) =>
                   `flex items-center p-2 rounded-lg transition duration-300 transform ${
                     isActive
@@ -155,12 +163,12 @@ const AdminNav = () => {
                 }
               >
                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                  <FaHome className="w-5 h-5" color="black" />
+                  <FaLanguage className="w-5 h-5" color="black" />
                 </div>
                 <span className="ms-3">Add Language</span>
               </NavLink>
             </li>
-             <li>
+            <li>
               <NavLink
                 to="/admin-title"
                 className={({ isActive }) =>
@@ -172,7 +180,7 @@ const AdminNav = () => {
                 }
               >
                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                  <FaHome className="w-5 h-5" color="black" />
+                  <FaTint className="w-5 h-5" color="black" />
                 </div>
                 <span className="ms-3">Add Title</span>
               </NavLink>
@@ -189,7 +197,7 @@ const AdminNav = () => {
                 }
               >
                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                  <FaHome className="w-5 h-5" color="black" />
+                  <FaTextWidth className="w-5 h-5" color="black" />
                 </div>
                 <span className="ms-3">Add Content</span>
               </NavLink>
@@ -206,7 +214,7 @@ const AdminNav = () => {
                 }
               >
                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                  <FaHome className="w-5 h-5" color="black" />
+                  <FaAdversal className="w-5 h-5" color="black" />
                 </div>
                 <span className="ms-3">Add AdvertiseMent</span>
               </NavLink>
@@ -222,7 +230,6 @@ const AdminNav = () => {
                 <span className="ms-3">Logout</span>
               </button>
             </li>
-            
           </ul>
         </div>
       </aside>

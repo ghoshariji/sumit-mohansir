@@ -3,6 +3,8 @@ const {
   registerUser,
   loginUser,
   validateTokenController,
+  userGrowth,
+  getAllLanguages,
 } = require("../controller/userController");
 const upload = require("../middleware/multer"); // Import multer middleware
 const authMiddleware = require("../middleware/authMiddleware");
@@ -16,5 +18,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 router.post("/validate-token", validateTokenController);
+router.get("/user-count", userGrowth);
+router.get("/user-lang-count", getAllLanguages);
 
 module.exports = router;

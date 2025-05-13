@@ -1,6 +1,7 @@
 const User = require("../modal/userModal");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Language = require("../modal/promLanguageModal");
 
 // Register User
 exports.registerUser = async (req, res) => {
@@ -146,5 +147,55 @@ exports.validateTokenController = async (req, res) => {
   } catch (error) {
     console.error("Token validation error:", error);
     return res.status(401).json({ success: false, message: "Invalid token" });
+  }
+};
+
+
+exports.userGrowth = async (req, res) => {
+  try {
+    // Total count of users
+    const totalUsers = await User.countDocuments({ userType: "user" });
+
+    // Monthly registration aggregation
+    const monthlyData = await User.aggregate([
+      { $match: { userType: "user" } },
+      {
+        $group: {
+          _id: { $month: "$createdAt" },
+          count: { $sum: 1 }
+        }
+      },
+      { $sort: { _id: 1 } }
+    ]);
+
+    const getMonthName = (monthNum) => {
+      const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+      return months[monthNum - 1];
+    };
+
+    const formattedMonthlyData = monthlyData.map((item) => ({
+      month: getMonthName(item._id),
+      count: item.count
+    }));
+
+    res.status(200).json({
+      totalUsers,
+      monthlyRegistrations: formattedMonthlyData
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching user growth", error });
+  }
+};
+
+
+exports.getAllLanguages = async (req, res) => {
+  try {
+    const languages = await Language.find({}, "programmingLanguage"); // Only return the field
+    res.status(200).json(languages);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch languages", error });
   }
 };
