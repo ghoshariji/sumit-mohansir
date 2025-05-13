@@ -33,12 +33,9 @@ exports.createAd = async (req, res) => {
 
 exports.getMedia = async (req, res) => {
   try {
-    const today = new Date();
 
-    const activeAds = await Advert.find({
-      expiryDate: { $gte: today },
-    }); // Don't send large media buffer here
-
+    const activeAds = await Advert.find(); // Don't send large media buffer here
+    console.log(activeAds)
     res.status(200).json(activeAds);
   } catch (err) {
     console.error("Error fetching active ads:", err);

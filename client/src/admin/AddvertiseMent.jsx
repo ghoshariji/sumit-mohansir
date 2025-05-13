@@ -23,7 +23,7 @@ const AdminAddvertise = () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_SERVER}/api/add/media`);
       const data = await res.json();
-
+      console.log(data)
       const adsWithUrls = data.map((ad) => {
         if (ad.media && ad.media.data && ad.media.contentType) {
           const uint8Array = new Uint8Array(ad.media.data.data);
@@ -130,7 +130,6 @@ const AdminAddvertise = () => {
               <tr>
                 <th className="p-4 text-left">Media</th>
                 <th className="p-4 text-left">Description</th>
-                <th className="p-4 text-left">Expiry Date</th>
                 <th className="p-4 text-left">Actions</th>
               </tr>
             </thead>
@@ -152,9 +151,7 @@ const AdminAddvertise = () => {
                     )}
                   </td>
                   <td className="p-4">{ad.description}</td>
-                  <td className="p-4">
-                    {new Date(ad.expiryDate).toLocaleDateString()}
-                  </td>
+                 
                   <td className="p-4 space-x-2">
                     <button
                       onClick={() => handleDelete(ad._id)}
