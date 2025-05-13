@@ -4,6 +4,7 @@ const Content = require("../modal/sectionModal");
 exports.createContent = async (req, res) => {
   try {
     const { selectedLanguageName, selectedTitle, contentText } = req.body;
+    console.log(req.body)
 
     const newContent = new Content({ selectedLanguageName, selectedTitle, contentText });
     await newContent.save();

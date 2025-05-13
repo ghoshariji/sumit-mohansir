@@ -9,9 +9,8 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({ origin: "*" }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "20mb" }));
+app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 
 // Database connection (replace with actual configuration)
 const db = require("./config/dbConn");
