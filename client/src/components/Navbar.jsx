@@ -107,23 +107,9 @@ const Navbar = () => {
 
       {mobileOpen && (
         <div className="md:hidden bg-white dark:bg-gray-800 text-black dark:text-white px-4 py-2 space-y-2">
-          <span className="block cursor-pointer">Tutorials ▾</span>
-          <span className="block cursor-pointer">Exercises ▾</span>
-          <span className="block cursor-pointer">Certificates ▾</span>
-          <span className="block cursor-pointer">Services ▾</span>
-          <hr />
-          <span className="flex items-center gap-2">
-            <FaMagic /> Plus
-          </span>
-          <span className="flex items-center gap-2">
-            <FaCode /> Spaces
-          </span>
-          <span className="flex items-center gap-2">
+          {/* <span className="flex items-center gap-2">
             <FaGraduationCap /> For Teachers
-          </span>
-          <span className="flex items-center gap-2">
-            <FaShoppingCart /> Get Certified
-          </span>
+          </span> */}
           <div className="flex gap-4 mt-2">
             <button className="bg-green-500 text-white px-4 py-1 rounded-full">
               Sign Up
