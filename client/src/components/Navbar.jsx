@@ -105,60 +105,21 @@ const Navbar = () => {
         </div>
       </nav>
 
-     {mobileOpen && (
-  <div className="md:hidden bg-white dark:bg-gray-800 text-black dark:text-white px-4 py-4 space-y-4">
-    {/* Search Bar */}
-    <div className="flex items-center gap-2">
-      <input
-        type="text"
-        placeholder="Search..."
-        className="w-full border dark:border-gray-700 px-3 py-2 rounded-full text-sm outline-none bg-white dark:bg-gray-800 dark:text-white"
-      />
-      <FaSearch className="text-gray-600 dark:text-gray-300 cursor-pointer text-lg" />
-    </div>
-
-    {/* Dark mode toggle */}
-    <div className="flex items-center gap-2">
-      {darkMode ? (
-        <FaSun
-          onClick={() => setDarkMode(false)}
-          className="text-yellow-400 cursor-pointer text-xl"
-        />
-      ) : (
-        <FaMoon
-          onClick={() => setDarkMode(true)}
-          className="text-gray-600 cursor-pointer text-xl"
-        />
+      {mobileOpen && (
+        <div className="md:hidden bg-white dark:bg-gray-800 text-black dark:text-white px-4 py-2 space-y-2">
+          {/* <span className="flex items-center gap-2">
+            <FaGraduationCap /> For Teachers
+          </span> */}
+          <div className="flex gap-4 mt-2">
+            <button className="bg-green-500 text-white px-4 py-1 rounded-full">
+              Sign Up
+            </button>
+            <button className="bg-green-100 text-green-800 px-4 py-1 rounded-full">
+              Log in
+            </button>
+          </div>
+        </div>
       )}
-      <span>Toggle Dark Mode</span>
-    </div>
-
-    {/* For Teachers */}
-    <span
-      className="flex items-center gap-2 cursor-pointer"
-      onClick={() => toast.success("Coming soon")}
-    >
-      <FaGraduationCap /> For Teachers
-    </span>
-
-    {/* Auth Buttons */}
-    <div className="flex gap-4">
-      <button
-        onClick={() => navigate("/register")}
-        className="bg-green-500 text-white px-4 py-2 rounded-full w-full"
-      >
-        Sign Up
-      </button>
-      <button
-        onClick={() => navigate("/login")}
-        className="bg-green-100 text-green-800 px-4 py-2 rounded-full w-full"
-      >
-        Log in
-      </button>
-    </div>
-  </div>
-)}
-
 
       {/* Only show courses strip on home or course page */}
       {(location.pathname === "/" || location.pathname.includes("/course")) && (
